@@ -1,33 +1,41 @@
 <h1>Name of Applicant: <%= @applicant.name %></h1>
 <p>Full Address: <%= "#{@applicant.street_address}" %></p>
-<p><%= "#{@applicant.city}, #{@applicant.state} #{@applicant.zipcode}" %></p> 
+<p><%= "#{@applicant.city}, #{@applicant.state} #{@applicant.zipcode}" %></p>
 <p>Description: <%= @applicant.description %></p>
+
 
 <h2>Pets of Interest:</h2>
 <ul>
-  <% @applicant.pets.each do |pet| %>
-    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
-  <% end %>
+<% @applicant.pets.each do |pet| %>
+  <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+  <% end %> 
+  </ul>
   
-</ul>
-
-<p><strong>Applicant Status:</strong> <%= @applicant.status %></p>
-
-<h3>Add A Pet To This Appplication</h3>
-
-<div class="search_pet"> 
+  <p><strong>Applicant Status:</strong> <%= @applicant.status %></p>
+  
+  <h3>Add A Pet To This Appplication</h3>
+  
+  <div class="search_pet"> 
   <%= form_with url: "/applicants/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
-    <%= form.label :name, "Search A Pet" %>
-    <%= form.text_field :name %>
-    <%= form.submit "Search" %>
+  <%= form.label :name, "Search A Pet" %>
+  <%= form.text_field :name %>
+  <%= form.submit "Search" %>
   <% end %>
   
-    <br/>
-    <% if @results != nil %>
-      <% @results.each do |result| %>
-       <p><%= result.name %><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}?pet=#{result.id}", method: :post, data: { turbo: false } %></p>
+  <br/>
+  <% if @results != nil %>
+  <% @results.each do |result| %>
+    <p><%= result.name %><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}?pet=#{result.id}", method: :post, data: { turbo: false } %></p>
+    <% end %>
+    <% end %>
+    
+    <% if @applicant.pets != nil %>
+      <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
+        <p><%= form.label :description %>
+        <%= form.text_area :description %></p>
+        <p><%= form.submit 'Submit Application' %></p>
       <% end %>
     <% end %>
 </div>
-  
+    
 
