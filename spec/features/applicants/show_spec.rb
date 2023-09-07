@@ -30,4 +30,26 @@ RSpec.describe "applicant show page", type: :feature do
 
     expect(page).to have_link("Portia")
   end
+
+  it "only allows an applicant to submit the application once they've added at least 1 pet to the application" do 
+    applicant_3 = Applicant.create!(name: "Dachsuund Pup", street_address: "456 Greenwich", city: "New Jersey", state: "NJ", zipcode: "10006", description: "I'm a hound dog")
+
+    visit "/applicants/#{applicant_3.id}"
+
+    expect(page).to have_no_button("Submit Application")
+    expect(page).to have_no_field("Reason For Adoption:")
+    
+    fill_in "name", with: "Portia"
+    click_button "Search"
+
+    click_button "Adopt this Pet"
+
+    expect(page).to have_button("Submit Application")
+    expect(page).to have_field("Reason For Adoption")
+
+    fill_in "name", with: "Drake"
+    click_button "Search"
+
+    click_button "Adopt this Pet"
+  end
 end

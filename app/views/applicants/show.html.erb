@@ -2,6 +2,7 @@
 <p>Full Address: <%= "#{@applicant.street_address}" %></p>
 <p><%= "#{@applicant.city}, #{@applicant.state} #{@applicant.zipcode}" %></p> 
 <p>Description: <%= @applicant.description %></p>
+<p>Reason For Adoption: <%= @pet_applicant.reason_for_adoption %></p>
 
 <h2>Pets of Interest:</h2>
 <ul>
@@ -28,6 +29,13 @@
        <p><%= result.name %><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}?pet=#{result.id}", method: :post, data: { turbo: false } %></p>
       <% end %>
     <% end %>
+    <% if @applicant.pets.present? %> 
+      <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
+        <p><%= form.label :reason_for_adoption %>
+        <%= form.text_area :reason_for_adoption %></p>
+        <p><%= form.submit 'Submit Application' %></p>
+      <% end %>
+  <% end %>
 </div>
   
 

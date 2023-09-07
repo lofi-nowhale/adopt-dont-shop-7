@@ -28,6 +28,14 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def update
+    @pet_applicant = PetApplicant.find(params[:applicant_id])
+    
+    if pet_applicant.update(pet_applicant_params)
+      redirect_to "/applicants/#{pet_applicant.applicant_id}"
+    end
+  end
+
   private
   def applicant_params
     params.permit(:id, :name, :street_address, :city, :state, :zipcode, :description, status: :InProgress)
