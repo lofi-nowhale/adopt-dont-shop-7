@@ -12,6 +12,8 @@ class ApplicantsController < ApplicationController
       @search = params[:name]
       # redirect_to "/applicants/#{@applicant.id}"
     end
+    @pet_applicant = PetApplicant.find(params[:applicant_id])
+    require 'pry';binding.pry
   end
 
   def new

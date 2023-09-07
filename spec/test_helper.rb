@@ -28,8 +28,6 @@ def load_test_data
 
   @applicant_2 = Applicant.create!(name: "Clifford Red", street_address: "123 Greenwich", city: "New York City", state: "NY", zipcode: "10001", description: "10/10 pet parent duh", status: "Pending")
   
-  @applicant_3 = Applicant.create!(name: "Dachsuund Pup", street_address: "456 Greenwich", city: "New Jersey", state: "NJ", zipcode: "10006")
-
   PetApplicant.create!(applicant: @applicant_1, pet: @pet_1)
   PetApplicant.create!(applicant: @applicant_1, pet: @pet_2)
   

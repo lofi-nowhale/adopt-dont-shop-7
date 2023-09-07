@@ -29,13 +29,16 @@
     <% end %>
     <% end %>
     
-    <% if @applicant.pets != nil %>
+    <% if @applicant.pets.present? %>
       <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
-        <p><%= form.label :description %>
-        <%= form.text_area :description %></p>
+        <p><%= form.label :reason_for_adoption %>
+        <%= form.text_area :reason_for_adoption %></p>
+        <%
         <p><%= form.submit 'Submit Application' %></p>
       <% end %>
     <% end %>
+    <p>Reason For Adoption: <%= @pet_applicant.reason_for_adoption %></p>
 </div>
+
     
 
