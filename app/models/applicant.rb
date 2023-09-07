@@ -9,8 +9,4 @@ class Applicant < ApplicationRecord
 
   has_many :pet_applicants
   has_many :pets, through: :pet_applicants
-
-  # def self.search(search_params)
-  #   where("name ILIKE ?", "%#{search_params}%")
-  # end
 end
